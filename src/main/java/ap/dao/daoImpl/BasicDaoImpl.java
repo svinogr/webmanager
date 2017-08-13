@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,5 +65,15 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         Criteria criteria = currentSession.createCriteria(type);
         List<T> list = criteria.list();
         return list;
+    }
+
+    @Override
+    @Transactional
+    public long getCountRow() throws HibernateException  {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Object result = currentSession.createCriteria(type)
+                .setProjection(Projections.rowCount()).uniqueResult();
+
+       return  Long.parseLong(result.toString());
     }
 }

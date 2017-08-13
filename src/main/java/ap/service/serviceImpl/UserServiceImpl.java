@@ -66,4 +66,13 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public long getCountRow() {
+        try {
+            return userDao.getCountRow();
+        }catch (HibernateException e){
+            return 0;
+        }
+    }
 }

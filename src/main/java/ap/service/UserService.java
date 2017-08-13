@@ -10,4 +10,5 @@ public interface UserService {
     boolean deleteUser(User user);
     boolean updateUser(User user);
     List<User> getAll();
+    long getCountRow();
 }

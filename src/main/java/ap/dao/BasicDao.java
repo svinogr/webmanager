@@ -15,4 +15,6 @@ public interface BasicDao<T> {
     T getByID(int id) throws HibernateException;
 
     List<T> getAll() throws HibernateException;
+
+    long getCountRow() throws HibernateException;
 }

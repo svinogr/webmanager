@@ -73,7 +73,7 @@
                     <div class="row">
                         <div>
                             <div class="form-group">
-                                <label>Введите номер: {{editMail.parentId}}</label>
+                                <label>Введите email:</label>
                                 <input name="mail" type="email" class="form-control" required
                                        ng-model="editMail.mail">
                             </div>
@@ -106,9 +106,11 @@
 <div class="container">
     <div class="row">
         <div>
-            <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить</button>
+            <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить пользователя</button>
         </div>
-        <div>
+        <div class="row">
+
+
             <table ng-repeat="user in userStorage">
 
 
@@ -120,21 +122,27 @@
                             &#9658;</button>
                     </td>
 
-                    <td class="btn btn-primary" ng-click="createOrEdit(user)">Пользователь: {{user.name}}</td>
+                    <td width="300dp" class="btn btn-primary" ng-click="createOrEdit(user)" lign="left"> {{user.name}}
+                    </td>
                     <td>
                         <button class="btn  btn-primary" ng-click="deleteUser(user)">-</button>
                     </td>
                     <td>
-                        <button class="btn  btn-primary" ng-click="createMail(user)">+
+                        <button ng-show="user.expand" class="btn  btn-primary" ng-click="createMail(user)">+
                             &#128231;</button>
                     </td>
+                    <td> <span ng-show="user.progress" class="progress-bar  progress-bar-striped active"
+                               style="width: 100%">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></td>
+
                 </tr>
 
-                <tr ng-repeat="mail in user.listMails">
+                <tr ng-show ="user.expand" ng-repeat="mail in user.listMails">
                     <td></td>
 
-                    <td><h6 class="btn  btn-primary" ng-click="editMailFunction(mail)">email: {{mail.mail}}</h6></td>
+                    <td width="300dp"  class="btn btn-primary" ng-click="editMailFunction(mail)">
+                        {{mail.mail}}</td>
                     <td><h3 class="btn   btn-primary" ng-click="deleteMail(mail)">-</h3></td>
+                    <td></td>
                 </tr>
 
 
