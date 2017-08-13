@@ -1,11 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="UPump">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="/static/js/jquery-3.1.0.min.js"></script>
+    <link href="/static/css/mdb.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="/static/js/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="/static/js/angular-route.js"></script>
+    <script data-require="angular-ui-bootstrap@0.11.0" data-semver="0.11.0"
+            src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <link href="/static/css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/app.js"></script>
+    <script src="/static/js/spin.js"></script>
+
 </head>
-<body>
-все работате
+<body ng-cloak ng-controller="MainCTRL">
+<div class='ng-modal' ng-show='show'>
+    <div class='ng-modal-overlay' ng-click='hideModal()'></div>
+    <div class='ng-modal-dialog' ng-style='dialogStyle'>
+        <div class='ng-modal-dialog-content'>
+            <form name="myForm" novalidate>
+                <div class="bs-calltoaction bs-calltoaction-primary">
+                    <div class="row">
+                        <div>
+                            <div class="form-group">
+                                <label>Имя сотрудника:</label>
+                                <input name="name" type="text" class="form-control" required ng-model="editUser.name">
+                            </div>
+                            <div class="error" ng-show="myForm.name.$invalid && myForm.name.$dirty">
+                        <span ng-show="myForm.name.$error.name">
+                            Введите имя
+                        </span>
+                        <span ng-show="myForm.name.$error.required">
+                            Поле не должно быть пустым
+                        </span>
+                            </div>
+                            <div>
+                                <div class='cta-contents cta-button'>
+                                    <div>
+                                        <button ng-click="saveOrUpdate(editUser)"
+                                                class='btn btn-block btn-xs btn-primary'
+                                                ng-disabled="myForm.$invalid">Сохранить
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button ng-click="cancelEdit()" class='btn btn-block btn-xs btn-primary'>
+                                            Отмена
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class='ng-modal' ng-show='showPhone'>
+    <div class='ng-modal-overlay' ng-click='hideModal()'></div>
+    <div class='ng-modal-dialog' ng-style='dialogStyle'>
+        <div class='ng-modal-dialog-content'>
+            <form name="myphone" novalidate>
+                <div class="bs-calltoaction bs-calltoaction-primary">
+                    <div class="row">
+                        <div>
+                            <div class="form-group">
+                                <label>Введите номер:</label>
+                                <input name="number" type="number" max="9999999999999999999999999" class="form-control" required
+                                       ng-model="editPhone.number">
+                            </div>
+                            <div ng-show="myphone.number.$invalid && myphone.number.$dirty" class="error">
+                                <span ng-show="myphone.number.$error.required">поле не должно быть пустым</span>
+                                <span ng-show="myphone.number.$error.number">доступен только ввод цифр</span>
+                            </div>
+                            <div>
+                                <div class='cta-contents cta-button'>
+                                    <div>
+                                        <button ng-click="saveOrUpdatePhone(editPhone)"
+                                                class='btn btn-block btn-xs btn-primary'
+                                                ng-disabled="myphone.$invalid">Сохранить
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button ng-click="cancelEdit()" class='btn btn-block btn-xs btn-primary'>
+                                            Отмена
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table>
+    <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить</button>
+</table>
+<table ng-repeat="user in userStorage">
+
+
+    <tr>
+        <td>
+            <button ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">&#9660;</button>
+            <button ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">&#9658;</button>
+        </td>
+
+        <td class="btn btn-primary" ng-click="createOrEdit(user)">Пользователь: {{user.name}}</td>
+        <td><button class="btn  btn-primary" ng-click="deleteUser(user)">-</button></td>
+        <td><button class="btn  btn-primary" ng-click="createPhone(user)">+&#9742;</button></td>
+    </tr>
+
+    <tr ng-repeat="phone in user.listPhones">
+        <td></td>
+
+        <td><h6 class="btn  btn-primary" ng-click="editPhone(phone)">телефон: {{phone.number}}</h6></td>
+        <td><h3 class="btn   btn-primary">-</h3></td>
+    </tr>
+
+
+</table>
 
 
 </body>

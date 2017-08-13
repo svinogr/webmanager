@@ -1,0 +1,20 @@
+#list_workout{
+width:1000px;
+height: auto;
+}
+.workout{
+}
+#edit_workout{
+width: auto;
+height: auto;
+}
+#name_workout{
+width: 300px;
+height: auto;
+}
+.hiden{
+    display: none;
+}
+.unhiden{
+
+}

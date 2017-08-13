@@ -1,0 +1,379 @@
+@media (min-width: 768px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+
+.navbar-nav {
+    margin: 7.5px -15px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.navbar-width {
+    width: inherit;
+}
+
+.bs-calltoaction {
+    position: relative;
+    width: auto;
+    padding: 15px 25px;
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.bs-calltoaction > .row {
+    display: table;
+    width: calc(100% + 30px);
+}
+
+.bs-calltoaction > .row > [class^="col-"],
+.bs-calltoaction > .row > [class*=" col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.cta-contents {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cta-title {
+    margin: 0 auto 15px;
+    padding: 0;
+}
+
+.cta-title:first-letter {
+    text-transform: uppercase;
+}
+
+.cta-desc {
+    padding: 0;
+}
+
+.cta-desc p:last-child {
+    margin-bottom: 0;
+}
+
+.cta-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 991px) {
+    .bs-calltoaction > .row {
+        display: block;
+        width: auto;
+    }
+
+    .bs-calltoaction > .row > [class^="col-"],
+    .bs-calltoaction > .row > [class*=" col-"] {
+        float: none;
+        display: block;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    .cta-contents {
+        text-align: center;
+    }
+
+}
+
+.bs-calltoaction.bs-calltoaction-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.bs-calltoaction.bs-calltoaction-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.bs-calltoaction.bs-calltoaction-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.bs-calltoaction.bs-calltoaction-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.bs-calltoaction.bs-calltoaction-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+.bs-calltoaction.bs-calltoaction-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
+.bs-calltoaction.bs-calltoaction-info .cta-button .btn,
+.bs-calltoaction.bs-calltoaction-success .cta-button .btn,
+.bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
+.bs-calltoaction.bs-calltoaction-danger .cta-button .btn {
+    border-color: #fdfdfe;
+}
+
+.color-change {
+    width: 80px;
+}
+
+.form-control {
+    width: 100%;
+    padding: .10rem .10rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: white;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem
+}
+
+.form-control::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+
+.form-control:focus {
+    color: white;
+    background-color: #66afe9;
+    border-color: #66afe9;
+    outline: 0
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #fdfdfe;
+    opacity: 1
+}
+
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control:-ms-input-placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control:placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #eceeef;
+    opacity: 1
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: 2.5rem
+}
+
+select.form-control:focus::-ms-value {
+    color: #55595c;
+    background-color: #fff
+}
+
+input[type=date], input[type=login] input[type=datetime-local], input[type=email], input[type=number], input[type=password], input[type=search-md], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], textarea.md-textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+    outline: 0;
+    height: 2.1rem;
+    width: 100%;
+    font-size: 1rem;
+    box-shadow: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    transition: all .3s
+}
+
+img.avatar {
+    width: 30%;
+    height: auto;
+    border: 1px solid white;
+    margin-bottom: 10px;
+}
+
+img.logo {
+    width: 70px;
+    height: 45px;
+}
+
+a.logo {
+    margin-bottom: 20px;
+    margin-right: 40px;
+}
+
+li.navbarmini {
+    margin-left: 10px;
+}
+
+/*body{
+      overflow-y: scroll;
+}*/
+html{
+    overflow-y:scroll;
+    }
+
+/* хром, сафари */
+/*html::-webkit-scrollbar { width: 0; }
+
+!* ie 10+ *!
+html{ -ms-overflow-style: none; }
+
+!* фф (свойство больше не работает, других способов тоже нет)*!
+html{ overflow: -moz-scrollbars-none; }*/
+
+/*.animation {
+    -webkit-transition: 0.5s linear all
+}
+
+.animation.ng-enter {
+    opacity: 0
+}
+
+.animation.ng-enter.ng-enter-active {
+    opacity: 1
+}
+
+.animation.ng-leave {
+    opacity: 1
+}
+
+.animation.ng-leave.ng-leave-active {
+    opacity: 0
+}*/
+
+form .ng-invalid-number {
+    color: #d9534f;
+}
+
+form .ng-invalid-email {
+    color: #d9534f;
+}
+
+textarea {
+    margin-bottom: 10px;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+p {
+    word-break: break-all;
+}
+
+textarea
+.ng-invalid-maxlength {
+    color:#d9534f;
+}
+div .error{
+    }
+
+.badge-danger {
+    color: white;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.badge-primary{
+    color: white;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.post {
+    width: 100%;
+  text-align: justify;
+}
+
+
+.test>span{
+    color: black;
+    align-content: center;
+    padding-top: 20px;
+    padding-left:50px;
+}
+
+
+.ng-modal-overlay {
+    /* полупорозрачный DIV, который охватывает весь экран */
+position:absolute;
+z-index:9999;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-color:#000000;
+opacity: 0.8;
+}
+.ng-modal-dialog {
+    /* Отцентрированный даилог с тенью */
+    z-index:10000;
+    position: absolute;
+    width: 50%;
+
+    /* Центрирование */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+
+    background-color: inherit;
+    box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+    padding:10px;
+    text-align: left;
+}
+.ng-modal-close {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 120%;
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'arial', 'sans-serif';
+}
