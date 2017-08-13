@@ -1,30 +1,4 @@
 var upump = angular.module("UPump", ["ngRoute", "ui.bootstrap"]);
-/*upump.directive('modalDialog', function () {
- return {
- restrict: 'E',
- scope: {
- show: '='
- },
- replace: true, // Замените на шаблон
- transclude: true, // мы хотим вставлять пользовательский контент внутри директивы
- link: function (scope, element, attrs) {
- scope.dialogStyle = {};
-
- if (attrs.width) {
- scope.dialogStyle.width = attrs.width;
- }
-
- if (attrs.height) {
- scope.dialogStyle.height = attrs.height;
- }
-
- scope.hideModal = function () {
- scope.show = false;
- };
- },
- template: '...' // Смотрите ниже
- };
- });*/
 
 upump.controller("MainCTRL", function ($scope, $http,$timeout) {
     $scope.userStorage = [];
@@ -93,7 +67,6 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
 
     }
 
-
     function updateMail(editMail) {
         var req = {
                 method: 'PUT',
@@ -121,8 +94,6 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
 
             }, function () {
             });
-
-
     }
 
     $scope.deleteUser = function (user) {
@@ -291,16 +262,12 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
                             j = i;
 
                             break;
-
                         }
-
-
                     }
                     $scope.userStorage[j].progress=true;
                     var countUp = function() {
                         $scope.userStorage[j].expand = true;
                         $scope.userStorage[j].progress = false;
-                       
                     }
 
                     $timeout(countUp,1000);
@@ -311,7 +278,6 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
 
         }
     }
-
 
 })
 ;
