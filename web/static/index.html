@@ -103,35 +103,46 @@
         </div>
     </div>
 </div>
-
-<table>
-    <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить</button>
-</table>
-<table ng-repeat="user in userStorage">
-
-
-    <tr>
-        <td>
-            <button ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">&#9660;</button>
-            <button ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">&#9658;</button>
-        </td>
-
-        <td class="btn btn-primary" ng-click="createOrEdit(user)">Пользователь: {{user.name}}</td>
-        <td><button class="btn  btn-primary" ng-click="deleteUser(user)">-</button></td>
-        <td><button class="btn  btn-primary" ng-click="createMail(user)">+
-            &#128231;</button></td>
-    </tr>
-
-    <tr ng-repeat="mail in user.listMails">
-        <td></td>
-
-        <td><h6 class="btn  btn-primary" ng-click="editMailFunction(mail)">email: {{mail.mail}}</h6></td>
-        <td><h3 class="btn   btn-primary">-</h3></td>
-    </tr>
+<div class="container">
+    <div class="row">
+        <div>
+            <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить</button>
+        </div>
+        <div>
+            <table ng-repeat="user in userStorage">
 
 
-</table>
+                <tr>
+                    <td>
+                        <button ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
+                            &#9660;</button>
+                        <button ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
+                            &#9658;</button>
+                    </td>
 
+                    <td class="btn btn-primary" ng-click="createOrEdit(user)">Пользователь: {{user.name}}</td>
+                    <td>
+                        <button class="btn  btn-primary" ng-click="deleteUser(user)">-</button>
+                    </td>
+                    <td>
+                        <button class="btn  btn-primary" ng-click="createMail(user)">+
+                            &#128231;</button>
+                    </td>
+                </tr>
+
+                <tr ng-repeat="mail in user.listMails">
+                    <td></td>
+
+                    <td><h6 class="btn  btn-primary" ng-click="editMailFunction(mail)">email: {{mail.mail}}</h6></td>
+                    <td><h3 class="btn   btn-primary" ng-click="deleteMail(mail)">-</h3></td>
+                </tr>
+
+
+            </table>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

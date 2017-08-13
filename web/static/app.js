@@ -53,7 +53,8 @@ upump.controller("MainCTRL", function ($scope, $http) {
     $scope.saveOrUpdateMail = function (editMail) {
         if (angular.isDefined(editMail.id)) {
 
-            updateMail(editMail)
+            updateMail(editMail);
+            $scope.showMail = false;
         } else {
             addMail(editMail);
             $scope.showMail = false;
@@ -76,6 +77,7 @@ upump.controller("MainCTRL", function ($scope, $http) {
                     for (var i = 0; i < $scope.userStorage.length; i++) {
                         if ($scope.userStorage[i].id == editMail.parentId) {
                             var mail = {
+                                "parentId":editMail.parentId,
                                 "id": data.id,
                                 "mail": data.mail
                             };
@@ -107,13 +109,14 @@ upump.controller("MainCTRL", function ($scope, $http) {
                         for (var k = 0; k < $scope.userStorage[i].listMails.length; k++) {
                             if ($scope.userStorage[i].listMails[k].id == editMail.id) {
                                 $scope.userStorage[i].listMails[k].mail = editMail.mail;
+                                break;
                             }
                         }
 
-                        break;
+                        
                     }
                 }
-                $scope.showMail = false;
+               
 
             }, function () {
             });
@@ -134,6 +137,28 @@ upump.controller("MainCTRL", function ($scope, $http) {
             .then(function () {
                 $scope.userStorage.splice($scope.userStorage.indexOf(user), 1);
             }, function () {
+            });
+    };
+
+    $scope.deleteMail = function (mail) {
+        var req = {
+                method: 'DELETE',
+                url: '/api/user/mail/' + mail.id,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            ;
+        $http(req)
+            .then(function () {
+                for (var i = 0; i < $scope.userStorage.length; i++) {
+                    for (var k = 0; k < $scope.userStorage[i].listMails.length; k++) {
+                        if ($scope.userStorage[i].listMails[k].id == mail.id) {
+                            $scope.userStorage[i].listMails.splice($scope.userStorage[i].listMails.indexOf(mail), 1);
+                            break;
+                        }
+                    }
+                }
             });
     };
 
