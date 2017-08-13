@@ -34,35 +34,92 @@ upump.controller("MainCTRL", function ($scope, $http) {
         $scope.show = true;
     };
 
-    $scope.createPhone = function (user) {
-        alert(user.id);
-        $scope.editPhone ={
-            "parentId":user.id
+    $scope.createMail = function (user) {
+        $scope.editMail = {
+            "parentId": user.id
         };
-        $scope.showPhone = true;
-        
+        $scope.showMail = true;
+
     };
 
 
-    $scope.editPhone = function (phone) {
+    $scope.editMailFunction = function (phone) {
 
-        $scope.editPhone = phone ? angular.copy(phone) : {};
-        // alert(editPhone.number);
-        $scope.showPhone = true;
+        $scope.editMail = phone ? angular.copy(phone) : {};
+
+        $scope.showMail = true;
     };
 
-    $scope.saveOrUpdatePhone = function (editPhone) {
-        if (angular.isDefined(editPhone.id)) {
-            alert(editPhone.id);
-            alert(editPhone.parentId);
-            updatePhone(phone)
+    $scope.saveOrUpdateMail = function (editMail) {
+        if (angular.isDefined(editMail.id)) {
+
+            updateMail(editMail)
         } else {
-            alert(editPhone.number);
-            createPhone(editPhone);
-
+            addMail(editMail);
+            $scope.showMail = false;
         }
     };
 
+    function addMail(editMail) {
+        var req = {
+                method: 'POST',
+                url: '/api/user/' + editMail.parentId + '/mail/',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {"mail": editMail.mail}
+            }
+            ;
+        $http(req)
+            .then(function (response) {
+                    var data = response.data;
+                    for (var i = 0; i < $scope.userStorage.length; i++) {
+                        if ($scope.userStorage[i].id == editMail.parentId) {
+                            var mail = {
+                                "id": data.id,
+                                "mail": data.mail
+                            };
+                            $scope.userStorage[i].listMails.push(mail);
+                            break;
+                        }
+                    }
+                }
+                , function () {
+                });
+
+    }
+
+
+    function updateMail(editMail) {
+        var req = {
+                method: 'PUT',
+                url: '/api/user/mail/' + editMail.id,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {"mail": editMail.mail}
+            }
+            ;
+        $http(req)
+            .then(function () {
+                for (var i = 0; i < $scope.userStorage.length; i++) {
+                    if ($scope.userStorage[i].id == editMail.parentId) {
+                        for (var k = 0; k < $scope.userStorage[i].listMails.length; k++) {
+                            if ($scope.userStorage[i].listMails[k].id == editMail.id) {
+                                $scope.userStorage[i].listMails[k].mail = editMail.mail;
+                            }
+                        }
+
+                        break;
+                    }
+                }
+                $scope.showMail = false;
+
+            }, function () {
+            });
+
+
+    }
 
     $scope.deleteUser = function (user) {
         var req = {
@@ -101,13 +158,13 @@ upump.controller("MainCTRL", function ($scope, $http) {
             }
             ;
         $http(req)
-            .then(function (respons) {
-                var data = respons.data;
+            .then(function (response) {
+                var data = response.data;
                 var user = {
                     "id": data.id,
                     "name": data.name,
                     "expand": false,
-                    "listPhones": []
+                    "listMails": []
                 };
                 $scope.userStorage.push(user);
 
@@ -145,7 +202,7 @@ upump.controller("MainCTRL", function ($scope, $http) {
 
     $scope.cancelEdit = function () {
         $scope.show = false;
-        $scope.showPhone = false;
+        $scope.showMail = false;
     };
     var init = function () {
         var req = {
@@ -159,7 +216,7 @@ upump.controller("MainCTRL", function ($scope, $http) {
                         "id": response.data[i].id,
                         "name": response.data[i].name,
                         "expand": false,
-                        "listPhones": []
+                        "listMails": []
                     };
                     $scope.userStorage.push(user);
                 }
@@ -173,7 +230,7 @@ upump.controller("MainCTRL", function ($scope, $http) {
         if (user.expand) {
             for (var i = 0; i < $scope.userStorage.length; i++) {
                 if ($scope.userStorage[i].id == user.id) {
-                    $scope.userStorage[i].listPhones = [];
+                    $scope.userStorage[i].listMails = [];
                     $scope.userStorage[i].expand = false;
                 }
             }
@@ -181,7 +238,7 @@ upump.controller("MainCTRL", function ($scope, $http) {
 
             var req = {
                 method: 'GET',
-                url: '/api/user/' + user.id + '/phone',
+                url: '/api/user/' + user.id + '/mail',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -191,13 +248,13 @@ upump.controller("MainCTRL", function ($scope, $http) {
                     var node = response.data;
                     for (var i = 0; i < $scope.userStorage.length; i++) {
                         if ($scope.userStorage[i].id == user.id) {
-                            for (var k = 0; k < node.listPhones.length; k++) {
-                                var phone = {
-                                    "id": node.listPhones[k].id,
-                                    "number": node.listPhones[k].number,
+                            for (var k = 0; k < node.listMails.length; k++) {
+                                var mail = {
+                                    "id": node.listMails[k].id,
+                                    "mail": node.listMails[k].mail,
                                     "parentId": user.id
                                 };
-                                $scope.userStorage[i].listPhones.push(phone)
+                                $scope.userStorage[i].listMails.push(mail)
 
                             }
                             $scope.userStorage[i].expand = true;

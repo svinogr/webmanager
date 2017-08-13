@@ -24,7 +24,7 @@ public class User {
 
     @OneToMany(mappedBy = "parentId",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Phone> listPhones = new ArrayList<>();
+    private List<Mail> listMails = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -44,12 +44,12 @@ public class User {
         this.id = id;
     }
 
-    public List<Phone> getListPhones() {
-        return listPhones;
+    public List<Mail> getListMails() {
+        return listMails;
     }
 
-    public void setListPhones(List<Phone> listPhones) {
-        this.listPhones = listPhones;
+    public void setListMails(List<Mail> listMails) {
+        this.listMails = listMails;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", listPhones=" + listPhones +
+                ", listMails=" + listMails +
                 '}';
     }
 }

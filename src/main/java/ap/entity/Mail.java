@@ -1,21 +1,23 @@
 package ap.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "phone")
-public class Phone {
+@Table(name = "mail")
+public class Mail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "number is absent")
-    @Size(max = 15)
-    @Column(name = "number")
-    private String number;
+    @NotNull(message = "mail is absent")
+    @Email()
+    @Column(name = "mail")
+    private String mail;
 
     @JsonIgnore
     @ManyToOne()
@@ -33,19 +35,19 @@ public class Phone {
         this.id = id;
     }
 
-    public Phone() {
+    public Mail() {
     }
 
-    public Phone(String number) {
-        this.number = number;
+    public Mail(String number) {
+        this.mail = mail;
     }
 
-    public String getNumber() {
-        return number;
+    public String getMail() {
+        return mail;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public User getParentId() {
@@ -66,9 +68,9 @@ public class Phone {
 
     @Override
     public String toString() {
-        return "Phone{" +
+        return "Mail{" +
                 "id=" + id +
-                ", number=" + number +
+                ", number=" + mail +
                 ", parentId=" + parentId.getId() +
                 ", error='" + error + '\'' +
                 '}';

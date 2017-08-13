@@ -1,14 +1,15 @@
 package ap.controllers;
 
-import ap.entity.Phone;
+import ap.entity.Mail;
 import ap.entity.User;
-import ap.service.PhoneService;
+import ap.service.MailService;
 import ap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    PhoneService phoneService;
+    MailService mailService;
 
     @RequestMapping(method = RequestMethod.POST)
     public User createNewUser(@RequestBody @Valid User user, BindingResult bindingResult, HttpServletResponse response) {
@@ -38,7 +39,7 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "/{id}/phone", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/mail", method = RequestMethod.GET)
     @Transactional
     public User getUserById(@PathVariable int id, HttpServletResponse response) {
         User user = userService.getUserById(id);
@@ -90,60 +91,60 @@ public class UserController {
         return userList;
     }
 
-    @RequestMapping(value = "{id}/phone", method = RequestMethod.POST)
+    @RequestMapping(value = "{id}/mail", method = RequestMethod.POST)
     @Transactional
-    public Phone createNewUser(@RequestBody @Valid Phone phone, BindingResult bindingResult, @PathVariable int id, HttpServletResponse response) {
+    public Mail createNewUser(@RequestBody @Valid Mail mail, BindingResult bindingResult, @PathVariable int id, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
-            phone = getPhoneErrors(phone, bindingResult);
+            mail = getMailErrors(mail, bindingResult);
             response.setStatus(400);
-            return phone;
+            return mail;
         }
 
-        phone.setId(id);
-        if (!phoneService.createNewPhone(phone)) {
+        mail.setId(id);
+        if (!mailService.createNewMail(mail)) {
             response.setStatus(400);
-            return phone;
+            return mail;
         }
 
         response.setStatus(201);
-        response.setHeader("Location", "/api/v.1/user/" + id + "/phone/" + phone.getId());
-        return phone;
+        response.setHeader("Location", "/api/user/" + id + "/mail/" + mail.getId());
+        return mail;
     }
 
-    @RequestMapping(value = "/phone/{id}", method = RequestMethod.GET)
-    public Phone getPhoneById(@PathVariable int id, HttpServletResponse response) {
-        Phone phoneById = phoneService.getPhoneById(id);
-        if (phoneById == null) {
+    @RequestMapping(value = "/mail/{id}", method = RequestMethod.GET)
+    public Mail getMailById(@PathVariable int id, HttpServletResponse response) {
+        Mail mailById = mailService.getMailById(id);
+        if (mailById == null) {
             response.setStatus(404);
             return null;
         }
         response.setStatus(200);
-        return phoneById;
+        return mailById;
     }
 
-    @RequestMapping(value = "/phone/{id}", method = RequestMethod.PUT)
-    public Phone getUpdateById(@RequestBody @Valid Phone phone, BindingResult bindingResult, @PathVariable int id, HttpServletResponse response) {
+    @RequestMapping(value = "/mail/{id}", method = RequestMethod.PUT)
+    public Mail getUpdateById(@RequestBody @Valid Mail mail, BindingResult bindingResult, @PathVariable int id, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
-            phone = getPhoneErrors(phone, bindingResult);
+            mail = getMailErrors(mail, bindingResult);
             response.setStatus(400);
-            return phone;
+            return mail;
         }
-        phone.setId(id);
+        mail.setId(id);
 
-        if (phoneService.updatePhone(phone)) {
+        if (mailService.updateMail(mail)) {
             response.setStatus(200);
-            return phone;
+            return mail;
         }
         response.setStatus(404);
-        return phone;
+        return mail;
 
     }
 
-    @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
-    public void deletePhoneById(@PathVariable int id, HttpServletResponse response) {
-        Phone phone = new Phone();
-        phone.setId(id);
-        if (phoneService.deletePhone(phone)) {
+    @RequestMapping(value = "/mail/{id}", method = RequestMethod.DELETE)
+    public void deleteMailById(@PathVariable int id, HttpServletResponse response) {
+        Mail mail = new Mail();
+        mail.setId(id);
+        if (mailService.deleteMail(mail)) {
             response.setStatus(200);
         } else response.setStatus(404);
     }
@@ -157,13 +158,13 @@ public class UserController {
         return user;
     }
 
-    private Phone getPhoneErrors(Phone phone, BindingResult bindingResult) {
+    private Mail getMailErrors(Mail mail, BindingResult bindingResult) {
         Map<String, String> mapErrors = new HashMap();
         for (FieldError error : bindingResult.getFieldErrors()) {
             mapErrors.put(error.getField(), error.getDefaultMessage());
         }
-        phone.setError(mapErrors.get("number"));
-        return phone;
+        mail.setError(mapErrors.get("mail"));
+        return mail;
     }
 }
 

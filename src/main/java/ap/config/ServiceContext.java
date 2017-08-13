@@ -1,9 +1,8 @@
 package ap.config;
 
-import ap.entity.Phone;
-import ap.service.PhoneService;
+import ap.service.MailService;
 import ap.service.UserService;
-import ap.service.serviceImpl.PhoneServiceImpl;
+import ap.service.serviceImpl.MailServiceImpl;
 import ap.service.serviceImpl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,7 @@ public class ServiceContext {
     }
 
     @Bean
-    PhoneService phoneService(){
-        return new PhoneServiceImpl();
+    MailService mailService(){
+        return new MailServiceImpl();
     }
 }

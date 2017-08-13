@@ -1,12 +1,11 @@
 package ap.config;
 
 import ap.dao.BasicDao;
-import ap.dao.PhoneDao;
+import ap.dao.MailDao;
 import ap.dao.UserDao;
 import ap.dao.daoImpl.BasicDaoImpl;
-import ap.dao.daoImpl.PhoneDaoImpl;
+import ap.dao.daoImpl.MailDaoImpl;
 import ap.dao.daoImpl.UserDaoImpl;
-import ap.entity.Phone;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,8 +22,8 @@ public class DaoContext {
     }
 
     @Bean
-    PhoneDao phoneDao(){
-        return new PhoneDaoImpl();
+    MailDao phoneDao(){
+        return new MailDaoImpl();
     }
 
 }

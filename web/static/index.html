@@ -64,29 +64,29 @@
         </div>
     </div>
 </div>
-<div class='ng-modal' ng-show='showPhone'>
+<div class='ng-modal' ng-show='showMail'>
     <div class='ng-modal-overlay' ng-click='hideModal()'></div>
     <div class='ng-modal-dialog' ng-style='dialogStyle'>
         <div class='ng-modal-dialog-content'>
-            <form name="myphone" novalidate>
+            <form name="mymail" novalidate>
                 <div class="bs-calltoaction bs-calltoaction-primary">
                     <div class="row">
                         <div>
                             <div class="form-group">
-                                <label>Введите номер:</label>
-                                <input name="number" type="number" max="9999999999999999999999999" class="form-control" required
-                                       ng-model="editPhone.number">
+                                <label>Введите номер: {{editMail.parentId}}</label>
+                                <input name="mail" type="email" class="form-control" required
+                                       ng-model="editMail.mail">
                             </div>
-                            <div ng-show="myphone.number.$invalid && myphone.number.$dirty" class="error">
-                                <span ng-show="myphone.number.$error.required">поле не должно быть пустым</span>
-                                <span ng-show="myphone.number.$error.number">доступен только ввод цифр</span>
+                            <div ng-show="mymail.mail.$invalid && mymail.mail.$dirty" class="error">
+                                <span ng-show="mymail.mail.$error.required">поле не должно быть пустым</span>
+                                <span ng-show="mymail.mail.$error.email">введите правильный емейл</span>
                             </div>
                             <div>
                                 <div class='cta-contents cta-button'>
                                     <div>
-                                        <button ng-click="saveOrUpdatePhone(editPhone)"
+                                        <button ng-click="saveOrUpdateMail(editMail)"
                                                 class='btn btn-block btn-xs btn-primary'
-                                                ng-disabled="myphone.$invalid">Сохранить
+                                                ng-disabled="mymail.$invalid">Сохранить
                                         </button>
                                     </div>
                                     <div>
@@ -118,13 +118,14 @@
 
         <td class="btn btn-primary" ng-click="createOrEdit(user)">Пользователь: {{user.name}}</td>
         <td><button class="btn  btn-primary" ng-click="deleteUser(user)">-</button></td>
-        <td><button class="btn  btn-primary" ng-click="createPhone(user)">+&#9742;</button></td>
+        <td><button class="btn  btn-primary" ng-click="createMail(user)">+
+            &#128231;</button></td>
     </tr>
 
-    <tr ng-repeat="phone in user.listPhones">
+    <tr ng-repeat="mail in user.listMails">
         <td></td>
 
-        <td><h6 class="btn  btn-primary" ng-click="editPhone(phone)">телефон: {{phone.number}}</h6></td>
+        <td><h6 class="btn  btn-primary" ng-click="editMailFunction(mail)">email: {{mail.mail}}</h6></td>
         <td><h3 class="btn   btn-primary">-</h3></td>
     </tr>
 

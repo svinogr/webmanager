@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         try {
             List<User> list = userDao.getAll();
             for (User user : list) {
-                user.setListPhones(null);
+                user.setListMails(null);
             }
             return list;
         } catch (HibernateException e) {
