@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -37,55 +35,29 @@ public class HibernateConfig {
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
-/*    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-        //dataSource.setUsername(environment.getRequiredProperty("jdbc.login"));
-        //dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
-        return dataSource;
-    }*/
+
+    /*// в этом бине может быть ваша база :)
+      @Bean
+        public DataSource dataSource() {
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+            dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+            dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+            //dataSource.setUsername(environment.getRequiredProperty("jdbc.login"));
+            //dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+            return dataSource;
+        }*/
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-             /*  .addScript("db/sql/create-db.sql")
-               .addScript("db/sql/insert-data.sql")*/
-
-               .setName("db")
+                .setName("db")
                 .build();
     }
-    @Bean(initMethod="start",destroyMethod="stop")
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
     public Server server() throws SQLException {
-        return  Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8082");
+        return Server.createWebServer("-web", "-webAllowOthers", "-webDaemon", "-webPort", "8082");
 
     }
-
-   /* @Bean
-    public EmbeddedDatabase embeddedDatabase() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase embeddedDatabase = builder
-                .setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
-                .addScript("db/sql/create-db.sql")
-                .addScript("db/sql/insert-data.sql")
-                .build();
-        System.out.println(embeddedDatabase);
-        return embeddedDatabase;
-    }*/
-  /*  <!-- Use in-memory embedded H2 database -->
-    <jdbc:embedded-database id="dataSource" type="H2">
-    </jdbc:embedded-database>
-
-
-    <!-- Run H2 web server within application that will access the same in-memory database -->
-    <bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
-    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
-    </bean>
-    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-    <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
-    </bean>
-*/
-
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();

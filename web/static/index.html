@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/app.js"></script>
     <script src="/static/js/spin.js"></script>
-
 </head>
 <body ng-cloak ng-controller="MainCTRL">
 <div class='ng-modal' ng-show='show'>
@@ -31,7 +30,7 @@
                     <div class="row">
                         <div>
                             <div class="form-group">
-                                <label>Имя сотрудника:</label>
+                                <label>Введите имя:</label>
                                 <input name="name" type="text" class="form-control" required ng-model="editUser.name">
                             </div>
                             <div class="error" ng-show="myForm.name.$invalid && myForm.name.$dirty">
@@ -105,46 +104,52 @@
 </div>
 <div class="container">
     <div class="row">
-        <div>
-            <button class="btn  btn-primary" ng-click="createOrEdit()">Добавить пользователя</button>
-        </div>
-        <div class="row">
-            <table ng-repeat="user in userStorage">
-                <tr>
-                    <td>
-                        <button ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
-                            &#9660;</button>
-                        <button ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
-                            &#9658;</button>
-                    </td>
+        <table>
+            <tr>
 
-                    <td width="300dp" class="btn btn-primary" ng-click="createOrEdit(user)" lign="left"> {{user.name}}
-                    </td>
-                    <td>
-                        <button class="btn  btn-primary" ng-click="deleteUser(user)">-</button>
-                    </td>
-                    <td>
-                        <button ng-show="user.expand" class="btn  btn-primary" ng-click="createMail(user)">+
-                            &#128231;</button>
-                    </td>
-                    <td> <span ng-show="user.progress" class="progress-bar  progress-bar-striped active"
-                               style="width: 100%">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></td>
+                <td>
+                    <button title="Добавить имя" class="btn btn-primary" ng-click="createOrEdit()">+&#9786</button>
+                </td>
+            </tr>
+        </table>
 
-                </tr>
+        <table ng-repeat="user in userStorage">
+            <tr>
+                <td w>
+                    <button title="Закрыть" ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
+                        &#9660;</button>
+                    <button title="Окрыть" ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
+                        &#9658;</button>
+                </td>
 
-                <tr ng-show ="user.expand" ng-repeat="mail in user.listMails">
-                    <td></td>
+                <td width="300dp" title="Редактировать" class="btn btn-primary" ng-click="createOrEdit(user)"
+                    lign="left"> {{user.name}}
+                </td>
+                <td>
+                    <button title="Удалить" class="btn  btn-primary" ng-click="deleteUser(user)">-</button>
+                </td>
+                <td>
+                    <button title="Добавить почту" ng-show="user.expand" class="btn  btn-primary"
+                            ng-click="createMail(user)">+
+                        &#128231;</button>
+                </td>
+                <td> <span ng-show="user.progress" class="progress-bar  progress-bar-striped active"
+                           style="width: 100%">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></td>
 
-                    <td width="300dp"  class="btn btn-primary" ng-click="editMailFunction(mail)">
-                        {{mail.mail}}</td>
-                    <td><h3 class="btn   btn-primary" ng-click="deleteMail(mail)">-</h3></td>
-                    <td></td>
-                </tr>
-            </table>
+            </tr>
 
-        </div>
+            <tr ng-show="user.expand" ng-repeat="mail in user.listMails">
+                <td></td>
+
+                <td width="300dp" title="Редактировать" class="btn btn-primary" ng-click="editMailFunction(mail)">
+                    {{mail.mail}}
+                </td>
+                <td><h3 class="btn  btn-primary" title = " Удалить" ng-click="deleteMail(mail)">-</h3></td>
+                <td></td>
+            </tr>
+        </table>
+
     </div>
 </div>
-
 </body>
 </html>
