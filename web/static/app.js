@@ -1,6 +1,32 @@
 var upump = angular.module("UPump", ["ngRoute", "ui.bootstrap"]);
+upump.factory("mails", function ($http, $q) {
 
-upump.controller("MainCTRL", function ($scope, $http,$timeout) {
+    var getById = function (user) {
+        var canceller = $q.defer();
+
+        var cancel = function (reason) {
+            canceller.resolve(reason);
+        };
+
+        var promise =
+            $http.get("/api/user/" + user.id+"/mail", {timeout: canceller.promise})
+                .then(function (response) {
+                    return response.data.listMails;
+                });
+
+        return {
+            promise: promise,
+            cancel: cancel
+        };
+    };
+
+    return {
+        getById: getById
+    };
+
+});
+
+upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
     $scope.userStorage = [];
 
     $scope.createOrEdit = function (user) {
@@ -203,7 +229,8 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
     var init = function () {
         var req = {
             method: 'GET',
-            url: '/api/user/'
+            url: '/api/user/',
+            'Accept': 'application/json'
         };
         $http(req)
             .then(function (response) {
@@ -234,48 +261,36 @@ upump.controller("MainCTRL", function ($scope, $http,$timeout) {
                 }
             }
         } else {
+            var request = mails.getById(user);
+           
+            request.promise.then(function (list) {
+                var j;
+                for (var i = 0; i < $scope.userStorage.length; i++) {
+                    if ($scope.userStorage[i].id == user.id) {
+                        $scope.userStorage[i].progress = true;
+                        for (var k = 0; k < list.length; k++) {
 
-            var req = {
-                method: 'GET',
-                url: '/api/user/' + user.id + '/mail',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
-            $http(req)
-                .then(function (response) {
-                    var j;
-                    var node = response.data;
-                    for (var i = 0; i < $scope.userStorage.length; i++) {
-                        if ($scope.userStorage[i].id == user.id) {
-                            $scope.userStorage[i].progress = true;
-                            for (var k = 0; k < node.listMails.length; k++) {
-
-                                var mail = {
-                                    "id": node.listMails[k].id,
-                                    "mail": node.listMails[k].mail,
-                                    "parentId": user.id
-                                };
-                                $scope.userStorage[i].listMails.push(mail);
-
-                            }
-                            j = i;
-
-                            break;
+                            var mail = {
+                                "id": list[k].id,
+                                "mail": list[k].mail,
+                                "parentId": user.id
+                            };
+                            $scope.userStorage[i].listMails.push(mail);
                         }
+                        j = i;
+
+                        break;
                     }
-                    $scope.userStorage[j].progress=true;
-                    var countUp = function() {
-                        $scope.userStorage[j].expand = true;
-                        $scope.userStorage[j].progress = false;
-                    }
-
-                    $timeout(countUp,1000);
-
-                
-                }, function () {
-                });
-
+                }
+                $scope.userStorage[j].progress = true;
+                var countUp = function () {
+                    $scope.userStorage[j].expand = true;
+                    $scope.userStorage[j].progress = false;
+                };
+                $timeout(countUp, 1000);
+            }, function (reason) {
+            });
+          
         }
     }
 

@@ -115,10 +115,10 @@
 
         <table ng-repeat="user in userStorage">
             <tr>
-                <td w>
+                <td >
                     <button title="Закрыть" ng-show="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
                         &#9660;</button>
-                    <button title="Окрыть" ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
+                    <button title="Окрыть" ng-disabled="user.progress" ng-hide="user.expand" class="btn  btn-primary" ng-click="openNode(user)">
                         &#9658;</button>
                 </td>
 
@@ -133,8 +133,8 @@
                             ng-click="createMail(user)">+
                         &#128231;</button>
                 </td>
-                <td> <span ng-show="user.progress" class="progress-bar  progress-bar-striped active"
-                           style="width: 100%">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></td>
+                <td> <button ng-show="user.progress"  class="btn  btn-primary"><span  class="progress-bar  progress-bar-striped active"
+                           style="width: 100%">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></button></td>
 
             </tr>
 
