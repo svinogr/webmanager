@@ -67,7 +67,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
     public long getCountRow() {
         try {
             return userDao.getCountRow();

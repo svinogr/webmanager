@@ -1,36 +1,29 @@
 var upump = angular.module("UPump", ["ngRoute", "ui.bootstrap"]);
 upump.factory("mails", function ($http, $q) {
-
     var getById = function (user) {
         var canceller = $q.defer();
-
         var cancel = function (reason) {
             canceller.resolve(reason);
         };
-
         var promise =
-            $http.get("/api/user/" + user.id+"/mail", {timeout: canceller.promise})
+            $http.get("/api/user/" + user.id + "/mail", {timeout: canceller.promise})
                 .then(function (response) {
                     return response.data.listMails;
                 });
-
         return {
             promise: promise,
             cancel: cancel
         };
     };
-
     return {
         getById: getById
     };
-
 });
 
 upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
     $scope.userStorage = [];
 
     $scope.createOrEdit = function (user) {
-
         $scope.editUser = user ? angular.copy(user) : {};
         $scope.show = true;
     };
@@ -40,13 +33,10 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
             "parentId": user.id
         };
         $scope.showMail = true;
-
     };
 
     $scope.editMailFunction = function (mail) {
-
         $scope.editMail = mail ? angular.copy(mail) : {};
-
         $scope.showMail = true;
     };
 
@@ -90,7 +80,6 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
                 }
                 , function () {
                 });
-
     }
 
     function updateMail(editMail) {
@@ -116,8 +105,6 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
 
                     }
                 }
-
-
             }, function () {
             });
     }
@@ -140,13 +127,12 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
 
     $scope.deleteMail = function (mail) {
         var req = {
-                method: 'DELETE',
-                url: '/api/user/mail/' + mail.id,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            method: 'DELETE',
+            url: '/api/user/mail/' + mail.id,
+            headers: {
+                'Content-Type': 'application/json'
             }
-            ;
+        };
         $http(req)
             .then(function () {
                 for (var i = 0; i < $scope.userStorage.length; i++) {
@@ -165,7 +151,6 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
             updateUser(user)
         } else {
             createUser(user);
-
         }
     };
 
@@ -189,12 +174,9 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
                     "listMails": []
                 };
                 $scope.userStorage.push(user);
-
                 $scope.show = false;
             }, function () {
             });
-
-
     }
 
     function updateUser(user) {
@@ -246,7 +228,6 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
                 }
 
             }, function () {
-
             });
     };
 
@@ -262,7 +243,7 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
             }
         } else {
             var request = mails.getById(user);
-           
+
             request.promise.then(function (list) {
                 var j;
                 for (var i = 0; i < $scope.userStorage.length; i++) {
@@ -290,9 +271,7 @@ upump.controller("MainCTRL", function ($scope, $http, $timeout, mails) {
                 $timeout(countUp, 1000);
             }, function (reason) {
             });
-          
         }
     }
-
 })
 ;

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class StartController {
     private final static String[] names = {"Иван", "Том", "Фредди", "Женя", "Тимофей"};
-
     private final static String[] subNames = {"Иванов", "Сидоров", "Петров", "Семенов", "Курицын"};
 
     @Autowired
@@ -36,5 +35,4 @@ public class StartController {
         int sub = (int) (Math.random() * subNames.length);
         return names[name] + " " + subNames[sub];
     }
-
 }
