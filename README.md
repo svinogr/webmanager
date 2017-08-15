@@ -1,4 +1,4 @@
-# webmanager
+# webmanager (Тестовое задание)
 ## Back-end
 ***
 - Для доступа к базе используется Hinernate
